@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+
+<body>
+    <h1>Lista Receptores</h1>
+    <div>
+        <ul>
+            {{#each receptores}}
+            <li>
+                <a href="/receptor/{{this._id}}">{{this.nombreComercial}}</a>
+            </li>
+            {{/each}}
+        </ul>
+
+    </div>
+
+    <h2>
+        <div>
+            <form action="/add-receptor" method="POST">
+                <div>
+                    <label for="txt-codigo">Código Receptor:</label>
+                    <input type="text" id="txt-codigo" name="codigo" />
+                </div>
+                <div>
+                    <label for="txt-nombre">Nombre Comercial:</label>
+                    <input type="text" id="txt-nombre" name="nombre" />
+                </div>
+                <div>
+                    <label for="txt-correo">Correo Electrónico:</label>
+                    <input type="text" id="txt-correo" name="correo" />
+                </div>
+                <input type="submit" value="Agregar Receptor">
+            </form>
+        </div>
+    </h2>
+
+
+</body>
+</head>
+
+</html>
