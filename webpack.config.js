@@ -4,7 +4,8 @@ module.exports = {
   watch: true,
   mode: 'development',
   entry: {
-    home: './web/src/pages/home.js'
+    home: './web/src/pages/home.js',
+    login: './web/src/pages/LoginPage.js'
   },
   output: {
     path: path.resolve(__dirname, './public'),

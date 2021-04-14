@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bycripjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 require('../mongoose');
 
@@ -12,7 +13,7 @@ const userSchema = mongoose.Schema({//creación de esquema
     type: String,  //guarda como String y espera un String para consultar
     require: true, //requerido para realizar un insert 
     trim: true,      //hace trim() antes de guardar
-    unique : true
+    unique: true
   },
   email: {
     type: String,
@@ -54,17 +55,45 @@ const userSchema = mongoose.Schema({//creación de esquema
     type: String,
     require: true,
     trim: true,
-  }
+  },
+  tokens: [
+    {
+      token:{
+      type: String,
+      require: true
+    }
+    
+  }]
 });
 
-userSchema.pre('save', async function(next){//antes de guardar debe realizar la siguiente funcion
+userSchema.pre('save', async function (next) {//antes de guardar debe realizar la siguiente funcion
   //this hace referencia la objecto que tiene los datos
-  if(this.isModified('password')){
+  if (this.isModified('password')) {
     this.password = await bycripjs.hash(this.password, 8);
   }
   next();
 })
 
+userSchema.statics.checkCredentials = async (email, password) => {
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error('Erro al iniciar sesión');
+  }
+  const isCorrect = await bycripjs.compare(password, user.password);
+  if (!isCorrect) {
+    throw new Error('Erro al iniciar sesión');
+  }
+  return user;
+};
+
+userSchema.methods.generateToken = async function () {
+  const currentUser = this;
+  const token = jwt.sign({ _id: currentUser._id.toString() }, "claveTemporal");
+  currentUser.tokens = currentUser.tokens.concat({token});
+  await currentUser.save();
+  console.log(token);
+  return token;
+}
 
 //Define el esquema mongoose con relación a la colección de MongoDB
 const User = mongoose.model('usuarios', userSchema)//relaciona la coleccion de la base de datos con el esquema creado

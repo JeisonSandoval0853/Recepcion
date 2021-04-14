@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const UserController = require('../../controllers/UserController')//Llama al controlador
+const auth = require('../../midlewares/auth');
 
 async function addUser(req, res) {
   try {
@@ -28,7 +29,20 @@ async function getUsers(req, res) {
   return res.status(200).send(response);
 }
 
+async function validateUser(req, res) {
+  try {
+    const { email, password } = req.body;//Parametros de la petición
+    const response = await UserController.validateUser(email, password);
+    if (response.error) {
+      return res.status(500).send(response);
+    }
+    return res.status(200).send(response);
+  } catch (error) {
+  }
+}
+
 router.post('/api/users/add', addUser);
-router.get('/api/users', getUsers);
+router.post('/api/login', validateUser)
+router.get('/api/users', auth , getUsers); // auth => Si el usuario no llega autorizado no ejecuta el metodo getUsers
 
 module.exports = router;

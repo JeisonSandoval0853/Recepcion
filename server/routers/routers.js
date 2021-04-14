@@ -10,6 +10,10 @@ const UserAPI = require('./api-routes/UserAPI')
 
 
 //Imports de Vistas
+const LoginRouter = require('./views-routes/LoginRouter');
+const DashboardRouter = require('./views-routes/DashboardRouter');
+
+
 
 //Objecto encargado de gestionar todas las rutas
 const router = express.Router();
@@ -19,5 +23,8 @@ const router = express.Router();
 router.use(UserAPI);
 
 //Views
+router.use(LoginRouter);
+router.use(DashboardRouter);
+
 
 module.exports = router;

@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 
 const router = require('./routers/routers');
+const cookieParser = require('cookie-parser');
 
 require('./db/mongoose');
 
@@ -23,6 +24,9 @@ app.set('views', path.join(__dirname, '../server/views'));
 //configurar body.parse para utilizar req.body
 app.use(bodyParser.urlencoded({extended: true, encoded: true}));
 app.use(bodyParser.json());
+
+//Para acceder a las cookies desde el objecto req.
+app.use(cookieParser());
 
 //configuración de Midlewares
 app.use((req, res, next) => {
