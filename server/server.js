@@ -1,11 +1,11 @@
 const path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 
 const router = require('./routers/routers');
 
-const { MongoClient, ObjectId } = require('mongodb');
-const { nextTick } = require('process');
+require('./db/mongoose');
 
 const app = express();
 
@@ -19,6 +19,11 @@ app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, '../server/views'));
 //configuración de Handlebars
 
+
+//configurar body.parse para utilizar req.body
+app.use(bodyParser.urlencoded({extended: true, encoded: true}));
+app.use(bodyParser.json());
+
 //configuración de Midlewares
 app.use((req, res, next) => {
   console.info(`${req.method} :: ${req.originalUrl}`)
@@ -30,23 +35,8 @@ app.use((req, res, next) => {
 app.use('/', router);
 
 
-
-
-
-
 app.listen(9090, () => {
+ console.log('server is runnnin on port 9090');
+ });
 
-  console.log('server is runnnin on port 9090');
-  const mongoDbPath = 'mongodb+srv://jfsandoval:Recepcion2021*@recepcion.vcmd0.mongodb.net/Recepcion?retryWrites=true&w=majority';
-  const mongoConf = { useNewUrlParser: true, useUnifiedTopology: true };
-  MongoClient.connect(mongoDbPath, mongoConf, (err, client) => {
-    if (err) {
 
-      console.log('Error connecting to Database ', err);
-      return;
-    }
-
-    console.log('Conection State ', client.isConnected());
-    recepcionDB = client.db('Recepcion');
-  });
-});
