@@ -1,22 +1,15 @@
 import React from "react";
 import ReactDom from 'react-dom';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+import LoginLayout from '../components/layout/login-layout/LoginLayout';
+
 const LoginPage = () => {
   return (
     <div>
-      <form action="/login" method="POST">
-        <div>
-          <label>Correo: </label>
-          <input type="text" name="email"></input>
-        </div>
-        <div>
-          <label>Contraseña: </label>
-          <input type="password" name="password"></input>
-        </div>
-        <div>
-          <input type="submit" value="Iniciar Sesión"></input>
-        </div>
-      </form>
+      <CssBaseline />
+      <LoginLayout />
+      
     </div>
   )
 };

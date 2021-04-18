@@ -5,7 +5,9 @@ module.exports = {
   mode: 'development',
   entry: {
     home: './web/src/pages/home.js',
-    login: './web/src/pages/LoginPage.js'
+    login: './web/src/pages/LoginPage.js',
+    dashboard: '/web/src/pages/DashboardPage.js'
+    
   },
   output: {
     path: path.resolve(__dirname, './public'),

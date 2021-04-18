@@ -42,7 +42,7 @@ async function validateUser(req, res) {
 }
 
 router.post('/api/users/add', addUser);
-router.post('/api/login', validateUser)
+router.post('/api/login', validateUser);
 router.get('/api/users', auth , getUsers); // auth => Si el usuario no llega autorizado no ejecuta el metodo getUsers
 
 module.exports = router;
