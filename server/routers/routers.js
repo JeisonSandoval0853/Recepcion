@@ -7,6 +7,7 @@ const express = require('express');
 
 //Imports de API
 const UserAPI = require('./api-routes/UserAPI')
+const ReceptorAPI = require('./api-routes/ReceptorAPI')
 
 
 //Imports de Vistas
@@ -21,6 +22,7 @@ const router = express.Router();
 
 // API
 router.use(UserAPI);
+router.use(ReceptorAPI);
 
 //Views
 router.use(LoginRouter);

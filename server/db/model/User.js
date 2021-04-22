@@ -74,7 +74,7 @@ userSchema.pre('save', async function (next) {//antes de guardar debe realizar l
   next();
 })
 
-userSchema.statics.checkCredentials = async (email, password) => {
+userSchema.statics.checkCredentials = async (email, password) => {//Consulta credenciales de acceso
   const user = await User.findOne({ email });
   if (!user) {
     throw new Error('Erro al iniciar sesión');
@@ -86,6 +86,8 @@ userSchema.statics.checkCredentials = async (email, password) => {
   return user;
 };
 
+
+
 userSchema.methods.generateToken = async function () {
   const currentUser = this;
   const token = jwt.sign({ _id: currentUser._id.toString() }, "claveTemporal");
@@ -93,6 +95,13 @@ userSchema.methods.generateToken = async function () {
   await currentUser.save();
   console.log(token);
   return token;
+}
+
+userSchema.methods.toJSON= function () {
+  const user = this.toObject();
+  delete user.password;
+  delete user.tokens;
+  return user;
 }
 
 //Define el esquema mongoose con relación a la colección de MongoDB

@@ -3,8 +3,14 @@ const express = require('express');
 // const express = require('express');
 const router = express.Router();
 
-const UserController = require('../../controllers/UserController')//Llama al controlador
+
+//Llama al controlador
+const UserController = require('../../controllers/UserController')
+
+
+//Llama Middlewares
 const auth = require('../../midlewares/auth');
+const { route } = require('../views-routes/DashboardRouter');
 
 async function addUser(req, res) {
   try {
@@ -41,8 +47,12 @@ async function validateUser(req, res) {
   }
 }
 
+
+
 router.post('/api/users/add', addUser);
 router.post('/api/login', validateUser);
 router.get('/api/users', auth , getUsers); // auth => Si el usuario no llega autorizado no ejecuta el metodo getUsers
+//router.get('/api/receptors', auth, getReceptors);
+
 
 module.exports = router;
