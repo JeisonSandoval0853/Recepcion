@@ -41,6 +41,8 @@
     "webpack-dev-server": "3.11.2"
   },
   "scripts": {
+    "serve": "nodemon ./server/server.js",
+    "start": "node ./server/views/login.hbs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "fe": "webpack --config webpack.config.js --progress",
     "be": "nodemon ./server/server.js"

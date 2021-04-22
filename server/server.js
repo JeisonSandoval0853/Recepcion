@@ -39,8 +39,8 @@ app.use((req, res, next) => {
 app.use('/', router);
 
 
-app.listen(9090, () => {
- console.log('server is runnnin on port 9090');
+app.listen(process.env.PORT || 9090, () => {
+ console.log('server is runnnin on port 9090', process.env.PORT || 9090); 
  });
 
 
