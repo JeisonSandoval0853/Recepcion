@@ -2,7 +2,7 @@
   "name": "recepcion",
   "version": "1.0.0",
   "description": "Proyecto tesis",
-  "main": "app.js",
+  "main": "./server/server.js",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
