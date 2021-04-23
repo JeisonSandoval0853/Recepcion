@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   watch: true,
-  mode: 'production',
+  mode: 'development', 
   entry: {
     home: './web/src/pages/HomePage.js',
     login: './web/src/pages/LoginPage.js',
