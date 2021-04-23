@@ -40,8 +40,8 @@ app.use((req, res, next) => {
 app.use('/', router);
 
 
-app.listen(process.env.PORT || 3000, () => {
- console.log('server is runnnin on port 3000', process.env.PORT || 3000); 
+app.listen(process.env.PORT || 9090, () => {
+ console.log('server is runnnin on port 3000', process.env.PORT || 9090); 
  });
 
 

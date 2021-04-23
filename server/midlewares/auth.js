@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { ModuleFilenameHelpers } = require('webpack');
 const User = require('../db/model/User');
 
 
