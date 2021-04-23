@@ -13,6 +13,7 @@ const app = express();
 // Configuración de recursos publicos
 app.use(express.static('Public'));
 
+
 //configuración de Handlebars
 const hbs = exphbs.create({ extname: 'hbs', helpers: {} });
 app.engine('hbs', hbs.engine);
