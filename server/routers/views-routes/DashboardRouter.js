@@ -12,3 +12,5 @@ function renderDashboard(req, res) {
 router.get('/dashboard', auth,  renderDashboard);
 
 module.exports = router;
+
+

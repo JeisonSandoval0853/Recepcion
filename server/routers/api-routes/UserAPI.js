@@ -10,7 +10,7 @@ const UserController = require('../../controllers/UserController')
 
 //Llama Middlewares
 const auth = require('../../midlewares/auth');
-const { router } = require('../views-routes/DashboardRouter');
+const { route } = require('../views-routes/DashboardRouter');
 
 async function addUser(req, res) {
   try {

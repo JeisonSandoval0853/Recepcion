@@ -27,6 +27,10 @@ router.use(ReceptorAPI);
 //Views
 router.use(LoginRouter);
 router.use(DashboardRouter);
+router.get('/', renderHome)
+function renderHome(req, res) {
+  res.render('home');
+}
 
 
 module.exports = router;
