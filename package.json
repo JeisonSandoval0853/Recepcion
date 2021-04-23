@@ -42,6 +42,7 @@
   },
   "scripts": {
     "start": "node ./server/server.js",
+    "serve": "nodemon ./server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "fe": "webpack --config webpack.config.js --progress",
     "be": "nodemon ./server/server.js"
