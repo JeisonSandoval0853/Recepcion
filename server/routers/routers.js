@@ -29,7 +29,7 @@ router.use(LoginRouter);
 router.use(DashboardRouter);
 router.get('/', renderLogin)
 function renderLogin(req, res) {
-  res.redirect('login');
+  res.redirect('home');
 }
  
 
