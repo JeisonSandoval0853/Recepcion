@@ -31,6 +31,6 @@ router.get('/', renderLogin)
 function renderLogin(req, res) {
   res.redirect('login');
 }
-
+ 
 
 module.exports = router;

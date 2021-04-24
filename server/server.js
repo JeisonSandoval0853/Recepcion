@@ -37,11 +37,11 @@ app.use((req, res, next) => {
 //configuración de Midlewares
 
 //Routers
-app.use('/', router);
+app.use('/', router); 
 
 
-app.listen(process.env.PORT || 3001, () => {
- console.log('server is runnnin on port 3000', process.env.PORT || 3001); 
+app.listen(process.env.PORT || 3000, () => {
+ console.log('server is runnnin on port 3000', process.env.PORT || 3000); 
  });
 
 
