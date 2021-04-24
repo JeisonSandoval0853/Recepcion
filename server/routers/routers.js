@@ -27,9 +27,9 @@ router.use(ReceptorAPI);
 //Views
 router.use(LoginRouter);
 router.use(DashboardRouter);
-router.get('/', renderLogin)
-function renderLogin(req, res) {
-  res.redirect('login');
+router.get('/', renderHome)
+function renderHome(req, res) {
+  res.render('home');
 }
  
 
