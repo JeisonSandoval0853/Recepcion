@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ReceptorItem = (props) => {
   return (
@@ -10,5 +11,10 @@ const ReceptorItem = (props) => {
     </div> 
 )
 };
+
+ReceptorItem.propTypes={
+  ID: PropTypes.string,
+  email: PropTypes.string
+}
 
 export default ReceptorItem;

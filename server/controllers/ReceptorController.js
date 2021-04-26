@@ -14,13 +14,19 @@ const ReceptorController = {// consulta todos los receptores
 };
 */
 const ReceptorController = {
-  async getReceptors({filters = {} }) {//recibe el obehecto filters para una consulta mas segmentada a la BD - {} por defecto un objecto vacio
+  async getReceptors(filters = {} ) {//recibe el obehecto filters para una consulta mas segmentada a la BD - {} por defecto un objecto vacio
      try {
-       const receptors = await Receptors.find({filters});
+       let query = {};
+       for (const key in filters) {
+         if (filters[key].length > 0) {
+           query[key] = new RegExp(filters[key], 'i')
+         }
+       }
+       const receptors = await Receptors.find(query);
        return receptors;
-     } catch (error) {
+     } catch (err) {
        console.log('Error en ReceptorController :: getReceptors :: ',err)
-       return { error: "Error al consultar los receptores" }
+       return { err: "Error al consultar los receptores" }
      }
    }
  }; 

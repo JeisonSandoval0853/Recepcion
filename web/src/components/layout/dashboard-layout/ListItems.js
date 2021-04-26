@@ -39,5 +39,5 @@ export const mainListItems = (
       <ListItemText primary="Configuración" />
     </ListItem>
   </div>
-);
+); 
 
