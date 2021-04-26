@@ -11,8 +11,6 @@ const DashboardPage = () => {
     <div>
       <CssBaseline />
       <DashboardLayout />
-      <ReceptorsView/>
-      
     </div>
   )
 };

@@ -1,5 +1,7 @@
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,14 +14,21 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-//import Container from '@material-ui/core/Container';
-//import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 //import Paper from '@material-ui/core/Paper';
 //import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from './ListItems.js';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch
+} from "react-router-dom";
 //import Chart from './Chart';
 //import Deposits from './Deposits';
 //import Orders from './Orders';
@@ -107,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+function DashboardLayout(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -116,7 +125,6 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
@@ -155,10 +163,25 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
+        <Router>
         <List>{mainListItems}</List>
+        </Router>
         <Divider />
-        
       </Drawer>
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            {props.children}
+          </Grid>
+          </ Container>
+        </main>
     </div>
   );
 }
+
+DashboardLayout.propTypes ={
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.array ,PropTypes.any ])
+};
+
+export default DashboardLayout;
