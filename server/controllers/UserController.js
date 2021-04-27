@@ -4,6 +4,7 @@ const User = require('../db/model/User')
 const UserController = {
   async addUser(user, email, firstName, lastName, phone, company, ID, password) {
     //Le pasa al usuario los campos del esquema
+    console.log('parametros UserController: ',user, email, firstName, lastName, phone, company, ID, password)
     const newUser = new User({user, email, firstName, lastName, phone, company, ID, password })
     try {
       return await newUser.save();

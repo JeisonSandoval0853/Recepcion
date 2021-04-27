@@ -91,6 +91,7 @@ export default function Checkout() {
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>
+      <form action="/login" method="POST" className={classes.form} noValidate>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
             Checkout
@@ -119,7 +120,7 @@ export default function Checkout() {
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
-                      Back
+                      Atrás
                     </Button>
                   )}
                   <Button
@@ -128,13 +129,14 @@ export default function Checkout() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Registrar' : 'Siguiente'}
                   </Button>
                 </div>
               </React.Fragment>
             )}
           </React.Fragment>
         </Paper>
+        </form>
       </main>
     </React.Fragment>
   );

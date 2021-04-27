@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 require('../mongoose');
-
 const receptorSchema = mongoose.Schema({//creación de esquema
 
   ID: {
@@ -40,24 +39,27 @@ const receptorSchema = mongoose.Schema({//creación de esquema
   company: {
     type: String,
     require: true,
-    trim: true,
-    supplier:[{
+    trim: true
+  },
+    suppliers:[{
+    
       ID: {
+       
         type: String,
-        require: true,
+        //require: true,
         trim: true,
-        unique: true
+        unique: true,
       },
       company: {
         type: String,
-        require: true,
+        //require: true,
         trim: true
       },
       email: {
         type: String,
-        require: true,
+       // require: true,
         trim: true,
-        unique: true, //el valor es unico en la colección
+        //unique: true, //el valor es unico en la colección
         lowercase: true, //TO DO Agregar validación al correo 
         validate(value) {
           if (!validator.isEmail(value))
@@ -65,10 +67,11 @@ const receptorSchema = mongoose.Schema({//creación de esquema
         }
       },
       elementsValidateXml:[{
+        
         name:{
           type: String,
           trim: true,
-          unique: true
+         // unique: true
         },
         value:{
           type: String,
@@ -76,20 +79,21 @@ const receptorSchema = mongoose.Schema({//creación de esquema
         }
       }]
     }],
-    elementsValidateXml:[{
-      name:{
+    accessEmail:[{
+      email:{
         type: String,
+       // require: true,
         trim: true,
-        unique: true
+       //unique: true
       },
-      value:{
+      password:{
         type: String,
+        //require: true,
         trim: true
       }
     }]
-  }
+  
 });
-
 //Define el esquema mongoose con relación a la colección de MongoDB
 const Receptor = mongoose.model('receptores', receptorSchema)//relaciona la coleccion de la base de datos con el esquema creado
 
