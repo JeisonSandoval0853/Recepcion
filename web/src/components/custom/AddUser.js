@@ -3,16 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import FormInformationUser from './FormInformationUser';
-import FormTechnicalDetails from './FormTechnicalDetails';
-import FormReview from './FormReview';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
+
 
 
 
@@ -52,33 +49,8 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
-
-const steps = ['Información Receptor', 'Detalles Técnicos', 'Revise sus Datos'];
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <FormInformationUser />;
-    case 1:
-      return <FormTechnicalDetails />;
-    case 2:
-      return <FormReview />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
-
-export default function Checkout() {
+export default function FormPropsTextFields() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
 
   return (
     <React.Fragment>
@@ -91,52 +63,177 @@ export default function Checkout() {
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>
-      <form action="/login" method="POST" className={classes.form} noValidate>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Checkout
+          <form action="/api/receptors/add" method="POST" className={classes.root} noValidate autoComplete="off" >
+            <React.Fragment>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="ID"
+                    name="ID"
+                    label="Numero Identificación/NIT"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="email"
+                    name="email"
+                    label="Correo Electrónico"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="firstName"
+                    name="firstName"
+                    label="Primer Nombre"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="lastName"
+                    name="lastName"
+                    label="Apellido"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="phone"
+                    name="phone"
+                    label="Teléfono"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="company"
+                    name="company"
+                    label="Nombre Comercial/Razón Social"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Toolbar>
+                  <Typography variant="h6" color="inherit" noWrap>
+                    Registro de Proveedores
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Atrás
-                    </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Registrar' : 'Siguiente'}
-                  </Button>
-                </div>
-              </React.Fragment>
-            )}
-          </React.Fragment>
+                </Toolbar>
+              </Grid>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="supplierID"
+                    name="supplierID"
+                    label="NIT Proveedor"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="supplierCompany"
+                    name="supplierCompany"
+                    label="Nombre Comercial/Razón Social"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="supplierEmail"
+                    name="supplierEmail"
+                    label="Correo Electrónico"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+
+                <Toolbar>
+                  <Typography variant="h6" color="inherit" noWrap>
+                    Configuración XML Proveedor
+                 </Typography>
+                </Toolbar>
+              </Grid>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={12}>
+                  <TextField
+                    required
+                    id="nameXML"
+                    name="nameXML"
+                    label="Elemento del XML a Validar"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="valueXML"
+                    name="valueXML"
+                    label="Valor"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Toolbar>
+                  <Typography variant="h6" color="inherit" noWrap>
+                    Configuración Correo Recepción
+                 </Typography>
+                </Toolbar>
+              </Grid>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={9}>
+                  <TextField
+                    required
+                    id="emailRecepcion"
+                    name="emailRecepcion"
+                    label="Correo electrónico para la recepción de facturas"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="passwordRecepcion"
+                    name="passwordRecepcion"
+                    label="Contraseña de acceso"
+                    type="password"
+                    fullWidth
+                    autoComplete="given-name"
+                  />
+                </Grid>
+
+              </Grid>
+              <Grid>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Registrar
+                 </Button>
+              </Grid>
+            </React.Fragment>
+          </form>
         </Paper>
-        </form>
       </main>
     </React.Fragment>
   );
