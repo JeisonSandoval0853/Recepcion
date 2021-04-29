@@ -23,7 +23,7 @@ function ReceptorsView() {
   useEffect(() => {
     getReceptors();
   }, []);
-
+ 
  const renderReceptors = () => {
     if (receptors.lenght === 0) {
       return (
