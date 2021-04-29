@@ -10,6 +10,7 @@ function renderDashboard(req, res) {
 
 
 router.get('/dashboard', auth,  renderDashboard);
+router.get('/receptors', auth,  renderDashboard);
 
 module.exports = router;
 

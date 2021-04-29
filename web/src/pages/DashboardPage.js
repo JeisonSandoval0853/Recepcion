@@ -1,8 +1,16 @@
 import React from "react";
 import ReactDom from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch
+} from "react-router-dom";
 
 //import ReceptorsView from '../components/views/dashboard/ReceptorsView' 
-import AdminView from '../components/views/dashboard/AdminView'
+import AdminView from '../components/views/dashboard/AdminView' 
+import ReceptorsView from '../components/views/dashboard/ReceptorsView'
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import DashboardLayout from '../components/layout/dashboard-layout/DashboardLayout';
@@ -10,10 +18,18 @@ import DashboardLayout from '../components/layout/dashboard-layout/DashboardLayo
 const DashboardPage = () => {
   return (
     <div>
-      <CssBaseline />
-      <DashboardLayout>
-      <AdminView />
-      </DashboardLayout>
+      <Router>
+       <DashboardLayout>
+         <Switch>
+           <Route path="/dashboard">
+            <AdminView />
+           </Route>
+           <Route path="/receptors">
+            <ReceptorsView />
+           </Route>
+         </Switch>
+       </DashboardLayout>
+      </Router>
     </div>
   )
 };

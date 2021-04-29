@@ -163,9 +163,9 @@ function DashboardLayout(props) {
           </IconButton>
         </div>
         <Divider />
-        <Router>
+       
         <List>{mainListItems}</List>
-        </Router>
+        
         <Divider />
       </Drawer>
       <main className={classes.content}>
