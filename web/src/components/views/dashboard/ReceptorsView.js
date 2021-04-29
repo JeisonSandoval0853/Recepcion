@@ -13,10 +13,11 @@ function ReceptorsView() {
   const getReceptors = async () => {
     try {
       const response = await axios.post('/api/receptors',{ID, company});  // Get o post, de acuerdo a la consulta por axios /{} 
+      console.log('response: ',response)
       setReceptors(response.data);
     } catch (error) {
       setReceptors([]);
-      console.log(err)
+      console.log(error)
     }
   }
   useEffect(() => {

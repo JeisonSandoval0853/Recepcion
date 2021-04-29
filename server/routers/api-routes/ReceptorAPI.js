@@ -55,6 +55,7 @@ async function addReceptor(req, res) {
 }
 
 async function getReceptors(req, res) {
+  console.log('body getReceptors: ',req.body)
   const
     {
       ID = '',
@@ -69,7 +70,7 @@ async function getReceptors(req, res) {
   return res.status(200).send(response);
 }
 
-router.get('/api/receptors', auth, getReceptors);
+router.post('/api/receptors', auth, getReceptors);
 router.post('/api/receptors/add', auth, addReceptor)
 //router.get('/api/receptors', auth , getReceptors); // auth => Si el usuario no llega autorizado no ejecuta el metodo getUsers - .get consulta todos los receptores
 //router.get('/api/receptors', auth, getReceptors);
