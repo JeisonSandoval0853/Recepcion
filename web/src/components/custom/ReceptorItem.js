@@ -6,9 +6,9 @@ const ReceptorItem = (props) => {
     <div>
       <div>
         <p>N° Identificación: {props.ID}</p>
-        <p>Correo electrónico: {props.email}</p>
       </div>
     </div> 
+    
 )
 };
 
