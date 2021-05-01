@@ -11,6 +11,7 @@ import {
 //import ReceptorsView from '../components/views/dashboard/ReceptorsView' 
 import AdminView from '../components/views/dashboard/AdminView' 
 import ReceptorsView from '../components/views/dashboard/ReceptorsView'
+import ReportsView from '../components/views/dashboard/ReportsView'
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import DashboardLayout from '../components/layout/dashboard-layout/DashboardLayout';
@@ -26,6 +27,9 @@ const DashboardPage = () => {
            </Route>
            <Route path="/receptors">
             <ReceptorsView />
+           </Route>
+           <Route path="/reports">
+            <ReportsView />
            </Route>
          </Switch>
        </DashboardLayout>

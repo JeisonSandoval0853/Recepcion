@@ -11,6 +11,7 @@ function renderDashboard(req, res) {
 
 router.get('/dashboard', auth,  renderDashboard);
 router.get('/receptors', auth,  renderDashboard);
+router.get('/reports', auth,  renderDashboard); 
 
 module.exports = router;
 
