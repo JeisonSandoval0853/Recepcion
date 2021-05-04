@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 
-import ReceptorItem from '../../custom/ReceptorItem';
+import ReportItem from '../../custom/ReportItem';
 import ReceptorDetails from '../../custom/ReceptorDetails';
 
 import { Box } from '@material-ui/core';
@@ -25,9 +25,12 @@ import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 function ReportsView() {
   const useStyles = makeStyles((theme) => ({
@@ -115,12 +118,17 @@ function ReportsView() {
     getReports();
   }, []);
 
-  const renderReceptors = () => {
+  const renderReports = () => {
     if (reports.lenght === 0) {
       return (
         <div>Sin Receptores para mostrar</div>
       );
     }
+    return reports.map(reports => {
+      return (
+        <ReportItem  {...reports}/>
+      )
+    })
   };
 
   const classes = useStyles();
@@ -161,7 +169,7 @@ function ReportsView() {
       <CardContent>  
       <Box mt={2}>
         <Grid container spacing={2}>
-          {renderReceptors()}
+          {renderReports()}
         </Grid>
       </Box> 
         </CardContent>

@@ -15,6 +15,17 @@ const ReportController = {
       console.log('Error en ReceptorController :: getReceptors :: ',err)
       return { err: "Error al consultar los receptores" }
     }
+  },
+  async addReport(body) {
+    //Le pasa al usuario los campos del esquema
+    
+    const newReport = new Report(body)
+    try {
+      return await newReport.save();
+    } catch (err) {
+      console.log('Error en ReportController :: addReport :: ',err)
+      return { err: "Error al guardar el reporte" }
+    }
   }
 };
 
