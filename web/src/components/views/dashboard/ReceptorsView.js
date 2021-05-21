@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReceptorDetails from '../../custom/ReceptorDetails';
+import FormAddReceptor from '../../custom/FormAddReceptor';
+//styles
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+//elements
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import ReceptorDetails from '../../custom/ReceptorDetails';
-import {  Box  } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
-
-
+//Icons
+import AddIcon from '@material-ui/icons/Add';
 
 
 function ReceptorsView() {
@@ -82,7 +85,7 @@ function ReceptorsView() {
       fontSize: theme.typography.pxToRem(15),
       color: theme.palette.text.secondary,
     },
-    
+
   }));
 
   const [receptors, setReceptors] = useState([]);//state para acceder a las propiedades de un elemento HTML - 
@@ -111,8 +114,8 @@ function ReceptorsView() {
     }
     return receptors.map(receptors => {
       return (
-        <ReceptorDetails {...receptors}/>
-     )
+        <ReceptorDetails {...receptors} />
+      )
     })
   };
 
@@ -141,8 +144,9 @@ function ReceptorsView() {
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Busquedad de Receptores
+            Administración de Receptores
           </Typography>
+          <FormAddReceptor />
         </Toolbar>
       </AppBar>
 
