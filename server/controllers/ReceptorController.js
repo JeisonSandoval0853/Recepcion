@@ -30,6 +30,23 @@ const ReceptorController = {
        return { err: "Error al consultar los receptores" }
      }
    },
+   async deleteReceptors(filters = {}){
+    try {
+      let query = {};
+      for (const key in filters) {
+        if (filters[key].length > 0) {
+          query[key] = new RegExp(filters[key], 'i')
+        }
+      }
+      console.log('query delete ',query)
+      const receptors = await Receptor.remove(query);
+      return receptors;
+    } catch (err) {
+      console.log('Error en ReceptorController :: getReceptors :: ',err)
+      return { err: "Error al consultar los receptores" }
+    }
+
+   },
    async addReceptor(body) {
     //Le pasa al usuario los campos del esquema
     

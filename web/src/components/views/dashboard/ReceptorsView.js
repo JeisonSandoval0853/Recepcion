@@ -8,26 +8,9 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
-
-import ReceptorItem from '../../custom/ReceptorItem';
 import ReceptorDetails from '../../custom/ReceptorDetails';
-
 import {  Box  } from '@material-ui/core';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 
 
@@ -128,55 +111,8 @@ function ReceptorsView() {
     }
     return receptors.map(receptors => {
       return (
-        <Box m={1} key={receptors._id}>
-          <Card className={classes.root}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                  R
-          </Avatar>
-              }
-              action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-              }
-              title= {receptors.company}
-              subheader={receptors.email}
-            />
-            <CardContent>
-              <Grid item xs >
-                <ReceptorItem {...receptors} />
-              </Grid>
-            </CardContent>
-            <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-              </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon />
-              </IconButton>
-              <IconButton
-                className={clsx(classes.expand, {
-                  [classes.expandOpen]: expanded,
-                })}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                {expanded && <ExpandLessIcon />}
-                {!expanded && <ExpandMoreIcon />}
-
-              </IconButton>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <CardContent>
-               <ReceptorDetails {...receptors}/>
-              </CardContent>
-            </Collapse>
-          </Card>
-        </Box>
-      )
+        <ReceptorDetails {...receptors}/>
+     )
     })
   };
 

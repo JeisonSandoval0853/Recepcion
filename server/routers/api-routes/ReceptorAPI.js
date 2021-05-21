@@ -70,8 +70,26 @@ async function getReceptors(req, res) {
   return res.status(200).send(response);
 }
 
+async function deleteReceptor(req, res) {
+  console.log('body deleteReceptor: ',req.body)
+  const
+    {
+      ID = '',
+    } = req.body;
+
+
+  const response = await ReceptorController.deleteReceptors({ ID }); //se le pasa a la funcion del modelo el parametro recibido 
+  if (response.error) {
+    return res.status(500).send(response);
+  }
+  return res.status(200).send(response);
+}
+
+
+
 router.post('/api/receptors', auth, getReceptors);
 router.post('/api/receptors/add', auth, addReceptor)
+router.delete('/api/receptors/delete', auth, deleteReceptor)
 //router.get('/api/receptors', auth , getReceptors); // auth => Si el usuario no llega autorizado no ejecuta el metodo getUsers - .get consulta todos los receptores
 //router.get('/api/receptors', auth, getReceptors);
 
