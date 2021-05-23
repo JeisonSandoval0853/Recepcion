@@ -112,9 +112,9 @@ function ReceptorsView() {
         <div>Sin Receptores para mostrar</div>
       );
     }
-    return receptors.map(receptors => {
+    return receptors.map(receptor => {
       return (
-        <ReceptorDetails {...receptors} />
+        <ReceptorDetails {...receptor} />
       )
     })
   };

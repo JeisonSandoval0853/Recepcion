@@ -48,6 +48,7 @@ const useStyles = makeStyles({
 
 
 function ReportItem(props) {
+ 
   console.log('props ReportItem: ', props)
   const classes = useStyles();
 
@@ -83,23 +84,10 @@ function ReportItem(props) {
     emailSupplier: props.emailSupplier
   }];
 
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="center"></StyledTableCell>
-            <StyledTableCell align="center">N° Documento</StyledTableCell>
-            <StyledTableCell align="center">Estado</StyledTableCell>
-            <StyledTableCell align="center">Fecha Recepción</StyledTableCell>
-            <StyledTableCell align="center">Nit Proveedor</StyledTableCell>
-            <StyledTableCell align="center">Email Proveedor</StyledTableCell>
-          </TableRow>
-        </TableHead>
+  
+    return(
         <TableBody>
-
-          <StyledTableRow key={props._id}>
-         
+          <StyledTableRow key={props._id}>         
           <StyledTableCell align="center">
           <Button>
           <GetApp/>
@@ -121,9 +109,9 @@ function ReportItem(props) {
           </StyledTableRow>
 
         </TableBody>
-      </Table>
-    </TableContainer>
   )
+  
+ 
 }
 
 export default ReportItem;

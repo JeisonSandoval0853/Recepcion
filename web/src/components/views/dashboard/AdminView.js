@@ -52,7 +52,7 @@ function AdminView() {
   return (
     <div>
      
-      <AddUser/>
+     
     </div>
   )
 
