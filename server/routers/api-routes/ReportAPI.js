@@ -49,22 +49,29 @@ async function addReport(req, res) {
 
 
 async function getReport(req, res) {
- 
+  console.log('getReport :: req.body:: ',req.body)
+
+  if(req.body.dateReception ===null){
+    req.body.dateReception = ''
+  }
   const
     {
       receptorID = '',
-      documentID = ''
+      documentID = '',
+      dateReception = '',
     } = req.body;
 
+   
 
-  const response = await ReportController.getReport({ receptorID, documentID }); //se le pasa a la funcion del modelo el parametro recibido 
+
+  const response = await ReportController.getReport({ receptorID, documentID, dateReception }); //se le pasa a la funcion del modelo el parametro recibido 
   if (response.error) {
     return res.status(500).send(response);
   }
   return res.status(200).send(response);
 }
 
-router.get('/api/reports', auth, getReport);
+router.post('/api/reports', auth, getReport);
 router.post('/api/reports/add', auth, addReport)
 
 module.exports = router;

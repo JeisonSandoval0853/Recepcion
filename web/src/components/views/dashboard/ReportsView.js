@@ -1,28 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
-
-import ReportItem from '../../custom/ReportItem';
-import ReceptorDetails from '../../custom/ReceptorDetails';
 import Paper from '@material-ui/core/Paper';
 import { Box } from '@material-ui/core';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import Table from '@material-ui/core/Table';
@@ -33,6 +21,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import GetApp from '@material-ui/icons/GetApp';
 import CsvDownloader from 'react-csv-downloader';
+
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -54,18 +44,19 @@ const StyledTableRow = withStyles((theme) => ({
 
 
 
-
-
 function ReportsView() {
 
   const [reports, setReports] = useState([]);
   const [documentID, setReportsDocument] = useState('');
-  const [supplierID, setReportsSupplier] = useState('');
+  const [receptorID, setReportsReceptor] = useState('');
+  const [dateReception, setDateReception] =  useState(new Date(''));
+
 
   const getReports = async () => {
     try {
-      const response = await axios.get('/api/reports', { documentID, supplierID });  // Get o post, de acuerdo a la consulta por axios /{} 
-      console.log('response: ', response)
+      console.log('consulta reporte individual: ', { documentID, receptorID, dateReception })
+      const response = await axios.post('/api/reports', { documentID, receptorID, dateReception });  // Get o post, de acuerdo a la consulta por axios /{} 
+      console.log('response: ', response) 
       setReports(response.data);
     } catch (error) {
       setReports([]);
@@ -122,18 +113,22 @@ function ReportsView() {
           columns={columns}
           datas={datas}
           text="Descargar Reporte" />
-        {console.log('report._id: ', row._id)}
       </Button>
     )
   }
 
 
 
-  const useStyles = makeStyles({
+  const useStyles = makeStyles((theme) => ({
     table: {
       minWidth: 700,
     },
-  });
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+  }));
 
   const renderReports = () => {
 
@@ -149,6 +144,7 @@ function ReportsView() {
           <TableHead>
             <TableRow>
               <StyledTableCell></StyledTableCell>
+              <StyledTableCell>NIT Receptor</StyledTableCell>
               <StyledTableCell>N° Documento</StyledTableCell>
               <StyledTableCell>Estado</StyledTableCell>
               <StyledTableCell>Fecha Recepción</StyledTableCell>
@@ -164,6 +160,7 @@ function ReportsView() {
                   {createCSV(row)}
 
                 </StyledTableCell>
+                <StyledTableCell >{row.receptorID}</StyledTableCell>
                 <StyledTableCell >{row.documentID}</StyledTableCell>
                 <StyledTableCell>{row.statusDocument}</StyledTableCell>
                 <StyledTableCell>{row.dateReception}</StyledTableCell>
@@ -187,11 +184,20 @@ function ReportsView() {
 
   const updateState = (event) => {
     const value = event.currentTarget.value;
-    if (event.currentTarget.name === 'documentID') {
-      return setReportsDocument(value);
-    }
-    setReportsSupplier(value);
+    const name = event.currentTarget.name;
+
+    switch (name) {
+      case 'documentID':
+
+        return setReportsDocument(value);
+
+      case 'receptorID':
+        return setReportsReceptor(value);
+
+      case 'dateReception':
+        return setDateReception(value);
   };
+  }
 
   return (
     <Box m={1}>
@@ -200,18 +206,28 @@ function ReportsView() {
           title="Formulario Reportes"
         />
         <CardContent>
-          <Grid item xs sm={3}>
-            <TextField type="text" label="Numero Documento" value={documentID} name="documentID" onChange={updateState} fullWidth />
-          </Grid>
-          <Grid item xs sm={3} >
-            <TextField type="text" label="NIT Proveedor" value={supplierID} name="supplierID" onChange={updateState} fullWidth />
-          </Grid>
-          <Grid item xs={12} sm={9}>
 
-            <Button onClick={searchByFilter}
-              variant="contained"
-              color="primary"
-            >Buscar</Button>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+
+                <Grid item xs={3}>
+                  <TextField type="text" label="Numero Documento" value={documentID} name="documentID" onChange={updateState} fullWidth />
+                </Grid>
+                <Grid item xs sm={3} >
+                  <TextField type="text" label="NIT Receptor" value={receptorID} name="receptorID" onChange={updateState} fullWidth /></Grid>
+                <Grid item xs={6}>
+                  <TextField id="date" label="Fecha Validación" value={dateReception} type="date" name="dateReception" onChange={updateState}  className={classes.textField} InputLabelProps={{ shrink: true, }} />
+                </Grid>
+                <Grid item xs={6}>
+                  <Button onClick={searchByFilter}
+                    variant="contained"
+                    color="primary"
+                  >Buscar</Button>
+                </Grid>
+              </Grid>
+
+            </Grid>
           </Grid>
         </CardContent>
         <CardContent>

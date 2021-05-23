@@ -3,12 +3,14 @@ const Report = require('../db/model/Report')
 const ReportController = {
   async getReport(filters = {} ) {//recibe el obehecto filters para una consulta mas segmentada a la BD - {} por defecto un objecto vacio
     try {
+      console.log('getReport: ', filters)
       let query = {};
       for (const key in filters) {
         if (filters[key].length > 0) {
           query[key] = new RegExp(filters[key], 'i')
         }
       }
+      console.log('getReport:: query :: ', query)
       const report = await Report.find(query);
       return report;
     } catch (err) {
