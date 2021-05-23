@@ -47,6 +47,16 @@ const ReceptorController = {
     }
 
    },
+   async putReceptors(index, filters){
+    try { 
+      const receptors = await Receptor.findByIdAndUpdate(index, filters);
+      return receptors;
+    } catch (err) {
+      console.log('Error en ReceptorController :: putReceptors :: ',err)
+      return { err: "Error al actualizar los receptores" }
+    }
+
+   },
    async addReceptor(body) {
     //Le pasa al usuario los campos del esquema
     
@@ -71,7 +81,7 @@ const ReceptorController = {
     }
     console.log("receptor despues del for in: ", receptor)
     */
-   
+     
     const newReceptor = new Receptor(body)
     try {
       return await newReceptor.save();

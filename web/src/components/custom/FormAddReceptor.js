@@ -53,14 +53,14 @@ function FormAddReceptor() {
   const [valueXML, setNewValueXMLReceptor] = React.useState('')
   const [emailRecepcion, setNewEmailRecepcionReceptor] = React.useState('')
   const [passwordRecepcion, setNewPasswordRecepcionReceptor] = React.useState('')
-
-
+  const [serverImap, setNewServerImapReceptor] = React.useState('')
+  const [folderToRead, setNewFolderToReadReceptor] = React.useState('')
 
   //Petición al servidor
   const addReceptor = async () => {
     try {
-      console.log('addReceptor: ', { ID , email, firstName, lastName, phone, company, supplierID, supplierCompany,supplierEmail, nameXML, valueXML, emailRecepcion, passwordRecepcion})
-      const response = await axios.post('/api/receptors/add',  { ID , email, firstName, lastName, phone, company, supplierID, supplierCompany,supplierEmail, nameXML, valueXML, emailRecepcion, passwordRecepcion}) // Get o post, de acuerdo a la consulta por axios /{} 
+      console.log('addReceptor: ', { ID , email, firstName, lastName, phone, company, supplierID, supplierCompany,supplierEmail, nameXML, valueXML, emailRecepcion, passwordRecepcion, serverImap, folderToRead})
+      const response = await axios.post('/api/receptors/add', { ID, email, firstName, lastName, phone, company, supplierID, supplierCompany, supplierEmail, nameXML, valueXML, emailRecepcion, passwordRecepcion, serverImap, folderToRead }) // Get o post, de acuerdo a la consulta por axios /{} 
       console.log('response: ', response)
       handleClose();
     } catch (err) {
@@ -73,44 +73,50 @@ function FormAddReceptor() {
     const name = event.currentTarget.name;
     switch (name) {
       case 'ID':
-        
+
         return setNewIDReceptor(value);
 
       case 'email':
         return setNewEmailReceptor(value);
-      
-        case 'firstName':
+
+      case 'firstName':
         return setNewFirstNameReceptor(value);
 
-        case 'lastName':
+      case 'lastName':
         return setNewLastNameReceptor(value);
-        
-        case 'phone':
+
+      case 'phone':
         return setNewPhoneReceptor(value);
-        
-        case 'company':
+
+      case 'company':
         return setNewCompanyReceptor(value);
-        
-        case 'supplierID':
+
+      case 'supplierID':
         return setNewSupplierIDReceptor(value);
-        
-        case 'supplierCompany':
+
+      case 'supplierCompany':
         return setNewSupplierCompanyReceptor(value);
-        
-        case 'supplierEmail':
+
+      case 'supplierEmail':
         return setNewSupplierEmailReceptor(value);
-        
-        case 'nameXML':
+
+      case 'nameXML':
         return setNewNameXMLReceptor(value);
-        
-        case 'valueXML':
+
+      case 'valueXML':
         return setNewValueXMLReceptor(value);
-        
-        case 'emailRecepcion':
+
+      case 'emailRecepcion':
         return setNewEmailRecepcionReceptor(value);
 
-        case 'passwordRecepcion':
+      case 'passwordRecepcion':
         return setNewPasswordRecepcionReceptor(value);
+
+      case 'serverImap':
+        return setNewServerImapReceptor(value);
+
+      case 'folderToRead':
+        return setNewFolderToReadReceptor(value);
       default:
         break;
     }
@@ -313,6 +319,29 @@ function FormAddReceptor() {
                       label="Contraseña de acceso"
                       type="password"
                       fullWidth
+                      onChange={updateState}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      required
+                      id="serverImap"
+                      name="serverImap"
+                      label="Servidor del Correo"
+                      fullWidth
+                      autoComplete="given-name"
+                      value={serverImap}
+                      onChange={updateState}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      required
+                      id="folderToRead"
+                      name="folderToRead"
+                      label="Carpeta Recepción"
+                      fullWidth
+                      value={folderToRead}
                       onChange={updateState}
                     />
                   </Grid>

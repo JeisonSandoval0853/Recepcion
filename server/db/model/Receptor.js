@@ -90,6 +90,16 @@ const receptorSchema = mongoose.Schema({//creación de esquema
         type: String,
         //require: true,
         trim: true
+      },
+      serverImap:{
+        type: String,
+        //require: true,
+        trim: true
+      },
+      folderToRead:{
+        type: String,
+        //require: true,
+        trim: true
       }
     }]
   
