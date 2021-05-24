@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -21,6 +21,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import GetApp from '@material-ui/icons/GetApp';
 import CsvDownloader from 'react-csv-downloader';
+import { red, blue, green } from '@material-ui/core/colors';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
+import { LensTwoTone } from '@material-ui/icons';
 
 
 
@@ -33,6 +36,13 @@ const StyledTableCell = withStyles((theme) => ({
     fontSize: 14,
   },
 }))(TableCell);
+
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+    secundary: red,
+  },
+});
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -49,14 +59,14 @@ function ReportsView() {
   const [reports, setReports] = useState([]);
   const [documentID, setReportsDocument] = useState('');
   const [receptorID, setReportsReceptor] = useState('');
-  const [dateReception, setDateReception] =  useState(new Date(''));
+  const [dateReception, setDateReception] = useState(new Date(''));
 
 
   const getReports = async () => {
     try {
       console.log('consulta reporte individual: ', { documentID, receptorID, dateReception })
       const response = await axios.post('/api/reports', { documentID, receptorID, dateReception });  // Get o post, de acuerdo a la consulta por axios /{} 
-      console.log('response: ', response) 
+      console.log('response: ', response)
       setReports(response.data);
     } catch (error) {
       setReports([]);
@@ -109,15 +119,58 @@ function ReportsView() {
         <GetApp />
         <CsvDownloader filename={row._id + '_' + row.documentID}
           separator=";"
-          wrapColumnChar="'"
+          wrapColumnChar=""
           columns={columns}
           datas={datas}
-          text="Descargar Reporte" />
+          text="Reporte individual" />
       </Button>
     )
   }
 
+  const DownloadCSV = () => {
+    const fileName = [{
+      fileName: 'ReportRecepcion'
+    }]
 
+    const columns = [{
+      id: 'documentID',
+      displayName: 'N° Documento'
+    }, {
+      id: 'statusDocument',
+      displayName: 'Estado'
+    },
+    {
+      id: 'dateReception',
+      displayName: 'Fecha Recepción'
+    },
+    {
+      id: 'supplierID',
+      displayName: 'Nit Proveedor'
+    },
+    {
+      id: 'emailSupplier',
+      displayName: 'Email Proveedor'
+    }];
+
+
+
+    return (
+      <ThemeProvider theme={theme}>
+        <Button variant="contained" color="primary" className={classes.margin}>
+          <DescriptionOutlinedIcon />
+          <CsvDownloader filename="reporteRecepción"
+            separator=";"
+            wrapColumnChar=""
+            columns={columns}
+            datas={reports}
+             >Descargar Reporte</CsvDownloader>
+        </Button>
+      </ThemeProvider>
+
+    )
+
+
+  }
 
   const useStyles = makeStyles((theme) => ({
     table: {
@@ -196,7 +249,7 @@ function ReportsView() {
 
       case 'dateReception':
         return setDateReception(value);
-  };
+    };
   }
 
   return (
@@ -214,18 +267,29 @@ function ReportsView() {
                 <Grid item xs={3}>
                   <TextField type="text" label="Numero Documento" value={documentID} name="documentID" onChange={updateState} fullWidth />
                 </Grid>
+
                 <Grid item xs sm={3} >
                   <TextField type="text" label="NIT Receptor" value={receptorID} name="receptorID" onChange={updateState} fullWidth /></Grid>
+
                 <Grid item xs={6}>
-                  <TextField id="date" label="Fecha Validación" value={dateReception} type="date" name="dateReception" onChange={updateState}  className={classes.textField} InputLabelProps={{ shrink: true, }} />
-                </Grid>
-                <Grid item xs={6}>
-                  <Button onClick={searchByFilter}
-                    variant="contained"
-                    color="primary"
-                  >Buscar</Button>
+                  <TextField id="date" label="Fecha Validación" value={dateReception} type="date" name="dateReception" onChange={updateState} className={classes.textField} InputLabelProps={{ shrink: true, }} />
                 </Grid>
               </Grid>
+            </Grid>
+          </Grid>
+
+
+          <Grid container spacing={3}>
+
+            <Grid item xs={3}>
+              <Button onClick={searchByFilter}
+                variant="contained"
+                color="secundary"
+              >Buscar</Button>
+            </Grid>
+            <Grid item xs={3}>
+
+              {DownloadCSV()}
 
             </Grid>
           </Grid>
