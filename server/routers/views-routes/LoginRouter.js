@@ -3,9 +3,7 @@ const router = express.Router();
 
 const UserController = require('../../controllers/UserController')
 
-function renderLogin(req, res) {
-  res.render('login', { layout: null })
-}
+
 
 async function validateUser(req, res) {
   try {
@@ -21,7 +19,7 @@ res.status(400).render('login', { layout: null, error: 'Usuario no encontrado'})
   }
 }
 
-router.get('/login', renderLogin);
+
 router.post('/login', validateUser);
 
 module.exports = router;

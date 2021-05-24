@@ -1,7 +1,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import axios from 'axios';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -22,6 +22,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from './ListItems.js';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,6 +33,7 @@ import {
 //import Chart from './Chart';
 //import Deposits from './Deposits';
 //import Orders from './Orders';
+
 
 
 
@@ -116,9 +118,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
 function DashboardLayout(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -126,6 +133,7 @@ function DashboardLayout(props) {
     setOpen(false);
   };
 
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -143,11 +151,13 @@ function DashboardLayout(props) {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Tablero
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
+          <form action="/logout" method="POST" className={classes.form} noValidate>
+          <IconButton color="inherit" type="submit">Salir
+          <ExitToAppOutlinedIcon></ExitToAppOutlinedIcon>
           </IconButton>
+          </form>
+          
+          
         </Toolbar>
       </AppBar>
       <Drawer
